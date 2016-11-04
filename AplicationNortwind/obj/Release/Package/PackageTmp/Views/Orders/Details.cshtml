@@ -1,0 +1,111 @@
+﻿@using AplicationNortwind.Models
+@model IEnumerable<AplicationNortwind.Models.Order_Details>
+
+@{
+    ViewBag.Title = "Detalle Ordenes";
+    var ordenCabecera = (Orders)Session["OrderSession"];
+}
+
+@if (ordenCabecera != null)
+{
+    <div class="form-horizontal">
+        <h4>Orden</h4>
+        <hr />       
+        <div class="form-group col-md-4">
+            <b>Codigo Orden: </b> @ordenCabecera.OrderID
+        </div>
+        <div class="form-group col-md-4">
+            <b>Codigo Orden: </b> @ordenCabecera.CustomerID            
+        </div>
+        <div class="form-group col-md-4">
+            <b>Fecha de Orden: </b> @ordenCabecera.OrderDate
+        </div>
+        <div class="form-group col-md-4">
+            <b>Carga: </b> @ordenCabecera.Freight
+        </div> 
+        <div class="form-group col-md-4">
+            <b>Dirección: </b> @ordenCabecera.ShipAddress
+        </div>
+        <div class="form-group col-md-4">
+            <b>Cuidad: </b> @ordenCabecera.ShipCity
+        </div>               
+        <div class="form-group col-md-4">
+            <b>Pais: </b> @ordenCabecera.ShipCountry
+        </div> 
+        <div class="form-group col-md-4">
+            <b>Empleado: </b> @ordenCabecera.Employees.LastName
+        </div>
+        <div class="form-group col-md-4">
+            <b>Cliente: </b> @ordenCabecera.Customers.CompanyName
+        </div>
+    </div>
+}
+<br />
+<br />
+<br />
+<br />
+<br/>
+<hr />
+<h4>Detalle de Orden</h4>
+<p>
+    @Html.ActionLink("Agregar Detalle Orden", "Create", "Order_Details", new { idOrder = Session["idOrdenCBO"] }, null)
+</p>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Orders.CustomerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Products.ProductName)
+        </th>
+        <th></th>
+    </tr>
+    
+    @if (!Model.Any())
+    {
+        <tr>
+            <td>
+                No hay datos que mostrar.
+            </td>
+        </tr>
+    }
+
+    @foreach (var item in Model)
+    {
+        <tr>           
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Orders.CustomerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Products.ProductName)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", "Order_Details", new {id = item.OrderID, productId = item.ProductID}, null)
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })*@
+                @Html.ActionLink("Eliminar", "Delete", "Order_Details", new {id = item.OrderID, productId = item.ProductID}, null)
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Regresar", "Index")
+</p>

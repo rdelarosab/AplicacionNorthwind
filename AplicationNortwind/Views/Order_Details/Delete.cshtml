@@ -1,0 +1,64 @@
+﻿@model AplicationNortwind.Models.Order_Details
+
+@{
+    ViewBag.Title = "Eliminar Detalle Orden";
+}
+
+<h2>Eliminar</h2>
+
+<h3>¿Estas seguro que deseas eliminar el detalle de la orden?</h3>
+<div>
+    <h4>Detalle Orden</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Orders.CustomerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Orders.CustomerID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Products.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Products.ProductName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Regresar", "Details", "Orders", new { id = Model.OrderID }, null)
+        </div>
+    }
+</div>
